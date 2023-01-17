@@ -1,46 +1,64 @@
 package com.example.multimedia_t5
 
+import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        var botonHacer = findViewById<Button>(R.id.botonHacer)
-        var texto1 = findViewById<EditText>(R.id.texto1)
-        var texto2 = findViewById<EditText>(R.id.texto2)
+        val botonHacer = findViewById<Button>(R.id.botonHacer)
+        val texto1 = findViewById<EditText>(R.id.texto1)
+        val texto2 = findViewById<EditText>(R.id.texto2)
 
-        // || texto2.text.isEmpty()
-        /*if (texto1.text.toString().isEmpty()){
-            botonHacer.isEnabled=false
-        } else {
-            botonHacer.isEnabled=true
+        botonHacer.isEnabled=false
+
+        texto1.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {}
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                botonHacer.isEnabled =
+                    !(texto1.text.toString().isEmpty()
+                            || texto2.text.toString().isEmpty())
+            }
+        })
+
+        texto2.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {}
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                botonHacer.isEnabled =
+                    !(texto1.text.toString().isEmpty()
+                            || texto2.text.toString().isEmpty())
+            }
+        })
+
+        botonHacer.setOnClickListener {
+            concatenar() }
+
+/*        texto1.setOnClickListener {
+            resultado.setText("@+id/string1")
+        }
+
+        texto2.setOnClickListener {
+            resultado.setText("@+id/string2")
         }*/
+    }
 
-        findViewById<EditText>(R.id.texto1).addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable?) {}
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                findViewById<Button>(R.id.botonHacer).isEnabled =
-                    !(findViewById<EditText>(R.id.texto1).text.toString().isEmpty()
-                            || findViewById<EditText>(R.id.texto2).text.toString().isEmpty());
-            }
-        })
-
-        findViewById<EditText>(R.id.texto2).addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable?) {}
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                findViewById<Button>(R.id.botonHacer).isEnabled =
-                    !(findViewById<EditText>(R.id.texto1).text.toString().isEmpty()
-                            || findViewById<EditText>(R.id.texto2).text.toString().isEmpty());
-            }
-        })
+    @SuppressLint("SetTextI18n")
+    private fun concatenar() {
+        val texto1 = findViewById<TextView>(R.id.texto1)
+        val texto2 = findViewById<TextView>(R.id.texto2)
+        val textToConcat1 = texto1.text.toString()
+        val textToConcat2 = texto2.text.toString()
+        texto2.text = textToConcat1 + textToConcat2
+        texto1.text = " "
     }
 }
