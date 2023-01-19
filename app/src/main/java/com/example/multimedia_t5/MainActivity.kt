@@ -18,7 +18,7 @@ class MainActivity : AppCompatActivity() {
         val texto1 = findViewById<EditText>(R.id.texto1)
         val texto2 = findViewById<EditText>(R.id.texto2)
 
-        botonHacer.isEnabled=false
+        botonHacer.isEnabled = false
 
         texto1.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {}
@@ -41,24 +41,21 @@ class MainActivity : AppCompatActivity() {
         })
 
         botonHacer.setOnClickListener {
-            concatenar() }
+            concatenar()
 
-/*        texto1.setOnClickListener {
-            resultado.setText("@+id/string1")
         }
 
-        texto2.setOnClickListener {
-            resultado.setText("@+id/string2")
-        }*/
     }
 
     @SuppressLint("SetTextI18n")
     private fun concatenar() {
         val texto1 = findViewById<TextView>(R.id.texto1)
         val texto2 = findViewById<TextView>(R.id.texto2)
+        val botonHacer = findViewById<Button>(R.id.botonHacer)
         val textToConcat1 = texto1.text.toString()
         val textToConcat2 = texto2.text.toString()
         texto2.text = textToConcat1 + textToConcat2
         texto1.text = " "
+        botonHacer.isEnabled=false
     }
 }
